@@ -10,4 +10,6 @@
 
 .pattern {
   background-image: url("./images/pattern-bg.png");
+  background-position: center;
+  background-size: cover;
 }
