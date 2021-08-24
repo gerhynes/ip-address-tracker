@@ -1,15 +1,61 @@
+import { useState, useEffect } from "react";
+
 function App() {
+  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+  const apiUrl = "https://geo.ipify.org/api/v1?apiKey=";
+  const apiKey = process.env.REACT_APP_IP_API_KEY;
+
+  const [ipAddress, setIpAddress] = useState("");
+  const [ipData, setIpData] = useState({
+    ip: "",
+    location: "",
+    timezone: "",
+    isp: ""
+  });
+
+  const getIpAddress = async () => {
+    try {
+      const res = await fetch("data.json");
+      const data = await res.json();
+      console.log(data);
+      setIpAddress(data.ip);
+      setIpData({
+        ip: data.ip,
+        location: `${data.location.city}, ${data.location.region} ${data.location.postalCode}`,
+        timezone: `UTC${data.location.timezone}`,
+        isp: data.isp
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getIpAddress();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await getIpAddress();
+  };
+
   return (
     <div className="h-screen">
       <header className="pt-7 px-6 h-2/5 text-center pattern md:pt-9">
         <h1 className="text-3xl text-bold text-white mb-8 md:text-4xl">
           IP Address Tracker
         </h1>
-        <form action="#" className="w-full max-w-xl mx-auto flex">
+        <form
+          action="#"
+          className="w-full max-w-xl mx-auto flex"
+          onSubmit={handleSubmit}
+        >
           <input
             className="flex-auto py-4 px-6 rounded-l-xl text-xl"
             type="text"
             placeholder="Search for any IP address or domain"
+            value={ipAddress || ""}
+            onChange={(e) => setIpAddress(e.target.value)}
           />
           <button className="bg-black rounded-r-xl px-4">
             <svg
@@ -36,7 +82,7 @@ function App() {
               IP Address
             </p>
             <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
-              192.212.174.101
+              {ipData.ip || "192.212.174.101"}
             </p>
           </div>
           <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
@@ -44,7 +90,7 @@ function App() {
               Location
             </p>
             <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
-              Brooklyn, NY 10001
+              {ipData.location || "Brooklyn, NY 10001"}
             </p>
           </div>
           <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
@@ -52,7 +98,7 @@ function App() {
               Timezone
             </p>
             <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
-              UTC-05:00
+              {ipData.timezone || "UTC-05:00"}
             </p>
           </div>
           <div className="lg:pr-8">
@@ -60,15 +106,15 @@ function App() {
               ISP
             </p>
             <p className="text-xl font-bold lg:text-3xl lg:font-medium">
-              SpaceX Starlink
+              {ipData.isp || "SpaceX Starlink"}
             </p>
           </div>
         </div>
       </section>
       <section className="h-3/5">
-        <div className="h-full bg-green-500" id="map"></div>
+        <div className="h-full bg-blue-200" id="map"></div>
       </section>
-      <footer className="p-4 mt-auto text-center">
+      <footer className="p-4 mt-auto text-center bg-blue-500 text-blue-200">
         Challenge by{" "}
         <a
           href="https://www.frontendmentor.io?ref=challenge"
