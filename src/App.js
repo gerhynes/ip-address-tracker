@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 function App() {
-  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-  const apiUrl = "https://geo.ipify.org/api/v1?apiKey=";
+  const proxyUrl = process.env.REACT_APP_PROXY_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
   const apiKey = process.env.REACT_APP_IP_API_KEY;
 
   const [ipAddress, setIpAddress] = useState("");
@@ -10,11 +11,15 @@ function App() {
     ip: "",
     location: "",
     timezone: "",
-    isp: ""
+    isp: "",
+    coordinates: [51.505, -0.09]
   });
 
   const getIpAddress = async () => {
     try {
+      // const res = await fetch(
+      //   `${proxyUrl}${apiUrl}${apiKey}`
+      // );
       const res = await fetch("data.json");
       const data = await res.json();
       console.log(data);
@@ -23,7 +28,8 @@ function App() {
         ip: data.ip,
         location: `${data.location.city}, ${data.location.region} ${data.location.postalCode}`,
         timezone: `UTC${data.location.timezone}`,
-        isp: data.isp
+        isp: data.isp,
+        coordinates: [data.location.lat, data.location.lng]
       });
     } catch (err) {
       console.error(err);
@@ -41,7 +47,7 @@ function App() {
 
   return (
     <div className="h-screen">
-      <header className="pt-7 px-6 h-2/5 text-center pattern md:pt-9">
+      <header className="pt-7 px-6 h-2/5 text-center pattern md:pt-9 relative">
         <h1 className="text-3xl text-bold text-white mb-8 md:text-4xl">
           IP Address Tracker
         </h1>
@@ -74,9 +80,7 @@ function App() {
             </svg>
           </button>
         </form>
-      </header>
-      <section className="px-6 absolute w-full">
-        <div className="bg-white transform -translate-y-1/2 mt-6 mx-auto p-8 text-center rounded-xl max-w-6xl lg:mt-0 lg:flex lg:gap-8 lg:text-left">
+        <div className="relative z-20 bg-white transform translate-y-1/2 mx-auto p-8 text-center rounded-xl max-w-6xl lg:flex lg:gap-8 lg:text-left">
           <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
             <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
               IP Address
@@ -110,9 +114,25 @@ function App() {
             </p>
           </div>
         </div>
-      </section>
-      <section className="h-3/5">
-        <div className="h-full bg-blue-200" id="map"></div>
+      </header>
+
+      <section className="h-3/5 relative">
+        <Map
+          className="h-full z-10"
+          center={ipData.coordinates}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url={`https://api.mapbox.com/styles/v1/gerhynes/cksrl5lc32bu318lja60yfmlm/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_API_KEY}`}
+          />
+          <Marker position={ipData.coordinates}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </Map>
       </section>
       <footer className="p-4 mt-auto text-center bg-blue-500 text-blue-200">
         Challenge by{" "}
