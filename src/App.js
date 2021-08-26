@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
+import L from "leaflet";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+
+const marker = L.icon({
+  iconUrl: require("./images/marker.png"),
+  iconSize: 100
+});
 
 function App() {
   const proxyUrl = process.env.REACT_APP_PROXY_URL;
@@ -12,7 +18,7 @@ function App() {
     location: "",
     timezone: "",
     isp: "",
-    coordinates: [51.505, -0.09]
+    coordinates: [37.40599, -122.078514]
   });
 
   const getIpAddress = async () => {
@@ -63,7 +69,7 @@ function App() {
             value={ipAddress || ""}
             onChange={(e) => setIpAddress(e.target.value)}
           />
-          <button className="bg-black rounded-r-xl px-4">
+          <button className="bg-black rounded-r-xl px-4 hover:bg-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-white"
@@ -80,38 +86,40 @@ function App() {
             </svg>
           </button>
         </form>
-        <div className="relative z-20 bg-white transform translate-y-1/2 mx-auto p-8 text-center rounded-xl max-w-6xl lg:flex lg:gap-8 lg:text-left">
-          <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-            <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
-              IP Address
-            </p>
-            <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
-              {ipData.ip || "192.212.174.101"}
-            </p>
-          </div>
-          <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-            <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
-              Location
-            </p>
-            <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
-              {ipData.location || "Brooklyn, NY 10001"}
-            </p>
-          </div>
-          <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-            <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
-              Timezone
-            </p>
-            <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
-              {ipData.timezone || "UTC-05:00"}
-            </p>
-          </div>
-          <div className="lg:pr-8">
-            <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
-              ISP
-            </p>
-            <p className="text-xl font-bold lg:text-3xl lg:font-medium">
-              {ipData.isp || "SpaceX Starlink"}
-            </p>
+        <div className="">
+          <div className="absolute bottom-0 inset-x-0 z-20 bg-white transform translate-y-1/2 mx-auto p-8 text-center rounded-xl w-custom max-w-6xl lg:flex lg:gap-8 lg:text-left">
+            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
+              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+                IP Address
+              </p>
+              <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
+                {ipData.ip || "192.212.174.101"}
+              </p>
+            </div>
+            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
+              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+                Location
+              </p>
+              <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
+                {ipData.location || "Brooklyn, NY 10001"}
+              </p>
+            </div>
+            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
+              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+                Timezone
+              </p>
+              <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
+                {ipData.timezone || "UTC-05:00"}
+              </p>
+            </div>
+            <div className="lg:pr-8">
+              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+                ISP
+              </p>
+              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
+                {ipData.isp || "SpaceX Starlink"}
+              </p>
+            </div>
           </div>
         </div>
       </header>
@@ -120,30 +128,33 @@ function App() {
         <Map
           className="h-full z-10"
           center={ipData.coordinates}
-          zoom={13}
+          zoom={16}
           scrollWheelZoom={false}
         >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url={`https://api.mapbox.com/styles/v1/gerhynes/cksrl5lc32bu318lja60yfmlm/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_API_KEY}`}
           />
-          <Marker position={ipData.coordinates}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
+          <Marker position={ipData.coordinates} icon={marker}>
+            <Popup>{ipData.location}</Popup>
           </Marker>
         </Map>
       </section>
-      <footer className="p-4 mt-auto text-center bg-blue-500 text-blue-200">
+      <footer className="p-4 mt-auto text-center bg-blue-500 text-white">
         Challenge by{" "}
         <a
+          className="text-blue-200"
           href="https://www.frontendmentor.io?ref=challenge"
           target="_blank"
           rel="noreferrer"
         >
           Frontend Mentor
         </a>
-        . Coded by <a href="https://github.com/GK-Hynes">Gerard Hynes</a>.
+        . Coded by{" "}
+        <a className="text-blue-200" href="https://github.com/GK-Hynes">
+          Gerard Hynes
+        </a>
+        .
       </footer>
     </div>
   );

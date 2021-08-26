@@ -13,3 +13,7 @@
   background-position: center;
   background-size: cover;
 }
+
+.w-custom {
+  width: calc(100% - 3rem);
+}
