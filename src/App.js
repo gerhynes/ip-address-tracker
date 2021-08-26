@@ -53,8 +53,8 @@ function App() {
 
   return (
     <div className="h-screen">
-      <header className="pt-8 px-6 h-76 text-center pattern relative">
-        <h1 className="text-4xl font-medium text-white mb-8">
+      <header className="pt-6 lg:pt-8 h-76 text-center pattern relative">
+        <h1 className="text-2xl lg:text-4xl font-medium text-white mb-8">
           IP Address Tracker
         </h1>
         <form
@@ -63,7 +63,7 @@ function App() {
           onSubmit={handleSubmit}
         >
           <input
-            className="flex-auto py-4 px-6 rounded-l-xl text-lg"
+            className="flex-auto py-3.5 px-6 rounded-l-xl text-lg text-gray-700"
             type="text"
             placeholder="Search for any IP address or domain"
             value={ipAddress || ""}
@@ -86,38 +86,41 @@ function App() {
             </svg>
           </button>
         </form>
-        <div className="">
-          <div className="absolute top-56 inset-x-0 z-20 mx-auto bg-white p-8 text-center rounded-xl w-custom max-w-6xl lg:flex lg:gap-8 lg:text-left">
+        <div>
+          <div
+            id="results"
+            className="absolute top-43 lg:top-52 inset-x-0 z-20 mx-auto bg-white p-6 lg:p-8 text-center rounded-xl w-custom max-w-6xl flex flex-col lg:flex-row gap-5 lg:gap-8 lg:text-left"
+          >
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
+              <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-4">
                 IP Address
               </p>
-              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
-                {ipData.ip || "192.212.174.101"}
+              <p className="text-xl font-medium lg:text-3xl lg:font-medium">
+                {"192.212.174.101"}
               </p>
             </div>
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
+              <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-4">
                 Location
               </p>
-              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
-                {ipData.location || "Brooklyn, NY 10001"}
+              <p className="text-xl font-medium lg:text-3xl lg:font-medium">
+                {"Brooklyn, NY 10001"}
               </p>
             </div>
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
+              <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-4">
                 Timezone
               </p>
-              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
-                {ipData.timezone || "UTC-05:00"}
+              <p className="text-xl font-medium lg:text-3xl lg:font-medium">
+                {"UTC-05:00"}
               </p>
             </div>
             <div className="lg:pr-8">
-              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
+              <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-4">
                 ISP
               </p>
-              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
-                {ipData.isp || "SpaceX Starlink"}
+              <p className="text-xl font-medium lg:text-3xl lg:font-medium">
+                {"SpaceX Starlink"}
               </p>
             </div>
           </div>

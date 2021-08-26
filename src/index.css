@@ -9,9 +9,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   outline: 1px solid red;
-}
+} */
 
 .pattern {
   background-image: url("./images/pattern-bg.png");
@@ -27,6 +27,19 @@
   height: 19rem;
 }
 
-.text-vd-gray {
-  color: var(--very-dark-gray);
+.h-82 {
+  height: 21rem;
+}
+
+.top-43 {
+  top: 10.5rem;
+}
+
+.top-46 {
+  top: 11.5rem;
+}
+
+.text-xxs {
+  font-size: 0.625rem;
+  line-height: 0.75rem;
 }
