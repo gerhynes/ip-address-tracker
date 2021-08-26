@@ -69,7 +69,10 @@ function App() {
             value={ipAddress || ""}
             onChange={(e) => setIpAddress(e.target.value)}
           />
-          <button className="bg-black rounded-r-xl px-4 hover:bg-gray-700">
+          <button
+            className="bg-black rounded-r-xl px-4 hover:bg-gray-700"
+            aria-label="Search for IP Address"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-white"
@@ -89,9 +92,9 @@ function App() {
         <div>
           <div
             id="results"
-            className="absolute top-43 lg:top-50 inset-x-0 z-20 mx-auto bg-white p-6 lg:p-8 text-center rounded-xl w-custom results-width flex flex-col lg:flex-row gap-5 lg:gap-8 lg:text-left"
+            className="absolute top-43 lg:top-50 inset-x-0 z-20 mx-auto bg-white p-6 lg:p-8 text-center rounded-xl w-custom results-width flex flex-col lg:flex-row gap-5 lg:gap-8 lg:text-left shadow-md"
           >
-            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
+            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200 flex-1">
               <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-2">
                 IP Address
               </p>
@@ -99,7 +102,7 @@ function App() {
                 {"192.212.174.101"}
               </p>
             </div>
-            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
+            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200 flex-1">
               <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-2">
                 Location
               </p>
@@ -107,7 +110,7 @@ function App() {
                 {"Brooklyn, NY 10001"}
               </p>
             </div>
-            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
+            <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200 flex-1">
               <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-2">
                 Timezone
               </p>
@@ -115,7 +118,7 @@ function App() {
                 {"UTC-05:00"}
               </p>
             </div>
-            <div className="lg:pr-8">
+            <div className="lg:pr-8 flex-1">
               <p className="text-xxs lg:text-sm tracking-widest font-bold text-gray-400 uppercase mb-2 lg:mb-2">
                 ISP
               </p>
