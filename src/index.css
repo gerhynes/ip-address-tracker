@@ -13,6 +13,39 @@
   outline: 1px solid red;
 } */
 
+@layer utilities {
+  @variants responsive {
+    .h-68 {
+      height: 17.5rem;
+    }
+
+    .h-76 {
+      height: 19rem;
+    }
+
+    .h-82 {
+      height: 21rem;
+    }
+
+    .top-43 {
+      top: 10.5rem;
+    }
+
+    .top-46 {
+      top: 11.5rem;
+    }
+
+    .top-50 {
+      top: 12.5rem;
+    }
+
+    .text-xxs {
+      font-size: 0.625rem;
+      line-height: 0.75rem;
+    }
+  }
+}
+
 .pattern {
   background-image: url("./images/pattern-bg.png");
   background-position: center;
@@ -23,23 +56,6 @@
   width: calc(100% - 3rem);
 }
 
-.h-76 {
-  height: 19rem;
-}
-
-.h-82 {
-  height: 21rem;
-}
-
-.top-43 {
-  top: 10.5rem;
-}
-
-.top-46 {
-  top: 11.5rem;
-}
-
-.text-xxs {
-  font-size: 0.625rem;
-  line-height: 0.75rem;
+.results-width {
+  max-width: 69.375rem;
 }
