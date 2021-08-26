@@ -53,17 +53,17 @@ function App() {
 
   return (
     <div className="h-screen">
-      <header className="pt-7 px-6 h-2/5 text-center pattern md:pt-9 relative">
-        <h1 className="text-3xl text-bold text-white mb-8 md:text-4xl">
+      <header className="pt-8 px-6 h-76 text-center pattern relative">
+        <h1 className="text-4xl font-medium text-white mb-8">
           IP Address Tracker
         </h1>
         <form
           action="#"
-          className="w-full max-w-xl mx-auto flex"
+          className="w-custom max-w-xl mx-auto flex"
           onSubmit={handleSubmit}
         >
           <input
-            className="flex-auto py-4 px-6 rounded-l-xl text-xl"
+            className="flex-auto py-4 px-6 rounded-l-xl text-lg"
             type="text"
             placeholder="Search for any IP address or domain"
             value={ipAddress || ""}
@@ -87,33 +87,33 @@ function App() {
           </button>
         </form>
         <div className="">
-          <div className="absolute bottom-0 inset-x-0 z-20 bg-white transform translate-y-1/2 mx-auto p-8 text-center rounded-xl w-custom max-w-6xl lg:flex lg:gap-8 lg:text-left">
+          <div className="absolute top-56 inset-x-0 z-20 mx-auto bg-white p-8 text-center rounded-xl w-custom max-w-6xl lg:flex lg:gap-8 lg:text-left">
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
                 IP Address
               </p>
-              <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
+              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
                 {ipData.ip || "192.212.174.101"}
               </p>
             </div>
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
                 Location
               </p>
-              <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
+              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
                 {ipData.location || "Brooklyn, NY 10001"}
               </p>
             </div>
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200">
-              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
                 Timezone
               </p>
-              <p className="text-xl font-bold mb-4 lg:text-3xl lg:font-medium">
+              <p className="text-xl font-bold lg:text-3xl lg:font-medium">
                 {ipData.timezone || "UTC-05:00"}
               </p>
             </div>
             <div className="lg:pr-8">
-              <p className="text-sm font-medium text-gray-400 uppercase mb-2 lg:text-lg">
+              <p className="text-sm tracking-widest font-bold text-gray-400 uppercase mb-4">
                 ISP
               </p>
               <p className="text-xl font-bold lg:text-3xl lg:font-medium">
@@ -124,8 +124,8 @@ function App() {
         </div>
       </header>
 
-      <section className="h-3/5 relative">
-        <Map
+      <section className="h-3/5 relative bg-blue-400">
+        {/* <Map
           className="h-full z-10"
           center={ipData.coordinates}
           zoom={16}
@@ -138,7 +138,7 @@ function App() {
           <Marker position={ipData.coordinates} icon={marker}>
             <Popup>{ipData.location}</Popup>
           </Marker>
-        </Map>
+        </Map> */}
       </section>
       <footer className="p-4 mt-auto text-center bg-blue-500 text-white">
         Challenge by{" "}

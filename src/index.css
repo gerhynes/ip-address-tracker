@@ -1,12 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 
+:root {
+  --very-dark-gray: hsl(0, 0%, 17%);
+  --dark-gray: hsl(0, 0%, 59%);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* * {
+* {
   outline: 1px solid red;
-} */
+}
 
 .pattern {
   background-image: url("./images/pattern-bg.png");
@@ -16,4 +21,12 @@
 
 .w-custom {
   width: calc(100% - 3rem);
+}
+
+.h-76 {
+  height: 19rem;
+}
+
+.text-vd-gray {
+  color: var(--very-dark-gray);
 }
