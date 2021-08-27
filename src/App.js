@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import L from "leaflet";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import arrowIcon from "./images/icon-arrow.svg";
 
 const marker = L.icon({
-  iconUrl: require("./images/marker.png"),
-  iconSize: 100
+  iconUrl: require("./images/icon-location.svg"),
+  iconSize: 50
 });
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       // const res = await fetch(
       //   `${proxyUrl}${apiUrl}${apiKey}`
       // );
+      // const res = await fetch(`/cors-proxy/${apiUrl}${apiKey}`);
       const res = await fetch("data.json");
       const data = await res.json();
       console.log(data);
@@ -73,20 +75,7 @@ function App() {
             className="bg-black rounded-r-xl px-4 hover:bg-gray-700"
             aria-label="Search for IP Address"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <img src={arrowIcon} alt="" />
           </button>
         </form>
         <div>
@@ -131,7 +120,7 @@ function App() {
       </header>
 
       <section className="h-3/5 relative bg-blue-400">
-        {/* <Map
+        <Map
           className="h-full z-10"
           center={ipData.coordinates}
           zoom={16}
@@ -144,9 +133,9 @@ function App() {
           <Marker position={ipData.coordinates} icon={marker}>
             <Popup>{ipData.location}</Popup>
           </Marker>
-        </Map> */}
+        </Map>
       </section>
-      <footer className="p-4 mt-auto text-center bg-blue-500 text-white">
+      <footer className="p-4 mt-auto text-center bg-gradient-to-r from-purple-500 via-purple-400 to-blue-400 text-white">
         Challenge by{" "}
         <a
           className="text-blue-200"
