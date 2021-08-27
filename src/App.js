@@ -9,7 +9,6 @@ const marker = L.icon({
 });
 
 function App() {
-  const proxyUrl = process.env.REACT_APP_PROXY_URL;
   const apiUrl = process.env.REACT_APP_API_URL;
   const apiKey = process.env.REACT_APP_IP_API_KEY;
 
@@ -22,15 +21,14 @@ function App() {
     coordinates: [37.40599, -122.078514]
   });
 
-  const getIpAddress = async () => {
+  const getIpAddress = async (ipAddress = "") => {
+    let ipExtension = "";
+    if (ipAddress) {
+      ipExtension = `&ipAddress=${ipAddress}`;
+    }
     try {
-      // const res = await fetch(
-      //   `${proxyUrl}${apiUrl}${apiKey}`
-      // );
-      // const res = await fetch(`/cors-proxy/${apiUrl}${apiKey}`);
-      const res = await fetch("data.json");
+      const res = await fetch(`/cors-proxy/${apiUrl}${apiKey}${ipExtension}`);
       const data = await res.json();
-      console.log(data);
       setIpAddress(data.ip);
       setIpData({
         ip: data.ip,
@@ -50,7 +48,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await getIpAddress();
+    await getIpAddress(ipAddress);
   };
 
   return (
@@ -68,7 +66,7 @@ function App() {
             className="flex-auto py-3.5 px-6 rounded-l-xl text-lg text-gray-700"
             type="text"
             placeholder="Search for any IP address or domain"
-            value={ipAddress || ""}
+            value={ipAddress}
             onChange={(e) => setIpAddress(e.target.value)}
           />
           <button
@@ -88,7 +86,7 @@ function App() {
                 IP Address
               </p>
               <p className="text-xl font-medium lg:text-2xl lg:font-medium">
-                {"192.212.174.101"}
+                {ipData.ip || "192.212.174.101"}
               </p>
             </div>
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200 flex-1">
@@ -96,7 +94,7 @@ function App() {
                 Location
               </p>
               <p className="text-xl font-medium lg:text-2xl lg:font-medium">
-                {"Brooklyn, NY 10001"}
+                {ipData.location || "Brooklyn, NY 10001"}
               </p>
             </div>
             <div className="lg:pr-8 lg:border-r-2 lg:border-gray-200 flex-1">
@@ -104,7 +102,7 @@ function App() {
                 Timezone
               </p>
               <p className="text-xl font-medium lg:text-2xl lg:font-medium">
-                {"UTC-05:00"}
+                {ipData.timezone || "UTC-05:00"}
               </p>
             </div>
             <div className="lg:pr-8 flex-1">
@@ -112,7 +110,7 @@ function App() {
                 ISP
               </p>
               <p className="text-xl font-medium lg:text-2xl lg:font-medium">
-                {"SpaceX Starlink"}
+                {ipData.isp || "SpaceX Starlink"}
               </p>
             </div>
           </div>
@@ -135,18 +133,23 @@ function App() {
           </Marker>
         </Map>
       </section>
-      <footer className="p-4 mt-auto text-center bg-gradient-to-r from-purple-500 via-purple-400 to-blue-400 text-white">
+      <footer className="p-4 mt-auto text-center bg-gradient-to-r from-purple-600 via-blue-500 to-blue-400 text-white">
         Challenge by{" "}
         <a
           className="text-blue-200"
           href="https://www.frontendmentor.io?ref=challenge"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           Frontend Mentor
         </a>
         . Coded by{" "}
-        <a className="text-blue-200" href="https://github.com/GK-Hynes">
+        <a
+          className="text-blue-200"
+          href="https://github.com/GK-Hynes"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Gerard Hynes
         </a>
         .
