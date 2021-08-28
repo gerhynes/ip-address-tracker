@@ -5,7 +5,7 @@ import MapWrapper from "./MapWrapper";
 import Footer from "./Footer";
 
 function App() {
-  const apiUrl = process.env.REACT_APP_API_URL;
+  // const apiUrl = process.env.REACT_APP_API_URL;
   const apiKey = process.env.REACT_APP_IP_API_KEY;
 
   const [ipAddress, setIpAddress] = useState("");
@@ -23,7 +23,7 @@ function App() {
       ipExtension = `&ipAddress=${ipAddress}`;
     }
     try {
-      const res = await fetch(`/cors-proxy/${apiUrl}${apiKey}${ipExtension}`);
+      const res = await fetch(`/cors-proxy/${apiKey}${ipExtension}`);
       const data = await res.json();
       setIpAddress(data.ip);
       setIpData({

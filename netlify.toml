@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/cors-proxy/*"
-  to = ":splat"
+  to = "https://geo.ipify.org/api/v1?apiKey=:splat"
   status = 200
   force = true
