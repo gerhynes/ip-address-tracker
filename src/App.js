@@ -23,7 +23,7 @@ function App() {
       ipExtension = `&ipAddress=${ipAddress}`;
     }
     try {
-      const res = await fetch(`/cors-proxy/${apiKey}${ipExtension}`);
+      const res = await fetch(`/cors-proxy/?apiKey=${apiKey}${ipExtension}`);
       const data = await res.json();
       setIpAddress(data.ip);
       setIpData({
