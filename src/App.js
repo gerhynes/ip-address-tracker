@@ -24,7 +24,9 @@ function App() {
     }
     try {
       const res = await fetch(`/cors-proxy/?apiKey=${apiKey}${ipExtension}`);
+      console.log(res);
       const data = await res.json();
+      console.log(data);
       setIpAddress(data.ip);
       setIpData({
         ip: data.ip,
