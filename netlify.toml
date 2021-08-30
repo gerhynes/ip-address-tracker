@@ -3,4 +3,14 @@
   to = "https://geo.ipify.org/api/v1:splat"
   status = 200
   force = true
-  headers = {Access-Control-Allow-Origin = "*"}
+
+[[headers]]
+  for = "/*"
+  [headers.values] 
+    Access-Control-Allow-Origin = "*"
+    X-Frame-Options = "SAMEORIGIN"
+    Cache-Control = "no-cache, private"
+    Connection = "close"
+    Content-Type = "application/json"
+    Transfer-Encoding = "chunked"
+    Vary = "Accept-Encoding"
