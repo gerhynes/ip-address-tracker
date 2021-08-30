@@ -8,5 +8,6 @@
   for = "/*"
   [headers.values] 
     Access-Control-Allow-Origin = "*"
-    X-Frame-Options = "SAMEORIGIN"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE"
     
