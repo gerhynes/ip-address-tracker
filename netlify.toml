@@ -9,8 +9,4 @@
   [headers.values] 
     Access-Control-Allow-Origin = "*"
     X-Frame-Options = "SAMEORIGIN"
-    Cache-Control = "no-cache, private"
-    Connection = "close"
-    Content-Type = "application/json"
-    Transfer-Encoding = "chunked"
-    Vary = "Accept-Encoding"
+    
