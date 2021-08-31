@@ -22,6 +22,7 @@ function App() {
           address: ipAddress
         })
       });
+
       const ipInfo = await res.json();
       setIpAddress(ipInfo.data.ip);
       setIpData({
