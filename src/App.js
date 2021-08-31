@@ -5,9 +5,6 @@ import MapWrapper from "./MapWrapper";
 import Footer from "./Footer";
 
 function App() {
-  // const apiUrl = process.env.REACT_APP_API_URL;
-  const apiKey = process.env.REACT_APP_IP_API_KEY;
-
   const [ipAddress, setIpAddress] = useState("");
   const [ipData, setIpData] = useState({
     ip: "",
@@ -18,22 +15,21 @@ function App() {
   });
 
   const getIpAddress = async (ipAddress = "") => {
-    let ipExtension = "";
-    if (ipAddress) {
-      ipExtension = `&ipAddress=${ipAddress}`;
-    }
     try {
-      const res = await fetch(`/cors-proxy/?apiKey=${apiKey}${ipExtension}`);
-      console.log(res);
-      const data = await res.json();
-      console.log(data);
-      setIpAddress(data.ip);
+      const res = await fetch(`/api/getIpInfo`, {
+        method: "POST",
+        body: JSON.stringify({
+          address: ipAddress
+        })
+      });
+      const ipInfo = await res.json();
+      setIpAddress(ipInfo.data.ip);
       setIpData({
-        ip: data.ip,
-        location: `${data.location.city}, ${data.location.region} ${data.location.postalCode}`,
-        timezone: `UTC${data.location.timezone}`,
-        isp: data.isp,
-        coordinates: [data.location.lat, data.location.lng]
+        ip: ipInfo.data.ip,
+        location: `${ipInfo.data.location.city}, ${ipInfo.data.location.region} ${ipInfo.data.location.postalCode}`,
+        timezone: `UTC${ipInfo.data.location.timezone}`,
+        isp: ipInfo.data.isp,
+        coordinates: [ipInfo.data.location.lat, ipInfo.data.location.lng]
       });
     } catch (err) {
       console.error(err);

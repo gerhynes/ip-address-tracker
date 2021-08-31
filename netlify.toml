@@ -1,13 +1,7 @@
-[[redirects]]
-  from = "/cors-proxy/*"
-  to = "https://geo.ipify.org/api/v1:splat"
-  status = 200
-  force = true
+[build]
+  functions = "functions"
 
-[[headers]]
-  for = "/*"
-  [headers.values] 
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Credentials = "true"
-    Access-Control-Allow-Headers = "*"
-    
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
