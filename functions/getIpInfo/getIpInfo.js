@@ -8,11 +8,12 @@ exports.handler = async (event, context) => {
 
   // Check for IP Address or domain
   let extension = "";
-  if (eventBody.address) {
-    if (validator.isIP(eventBody.address)) {
-      extension = `&ipAddress=${eventBody.address}`;
-    } else if (validator.isURL(eventBody.address)) {
-      const domain = new URL(eventBody.address);
+  if (eventBody.searchTerm) {
+    const { searchTerm } = eventBody;
+    if (validator.isIP(searchTerm)) {
+      extension = `&ipAddress=${searchTerm}`;
+    } else if (validator.isURL(searchTerm)) {
+      const domain = new URL(searchTerm);
       extension = `&domain=${domain.hostname}`;
     }
   }

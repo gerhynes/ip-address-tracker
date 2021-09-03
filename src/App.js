@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Results from "./Results";
+import ErrorMessage from "./ErrorMessage";
 import Form from "./Form";
+import Results from "./Results";
 import MapWrapper from "./MapWrapper";
 import Footer from "./Footer";
 
@@ -13,26 +14,29 @@ function App() {
     isp: "",
     coordinates: [37.40599, -122.078514]
   });
+  const [isError, setIsError] = useState(false);
 
   const getIpAddress = async (ipAddress = "") => {
     try {
       const res = await fetch(`/api/getIpInfo`, {
         method: "POST",
         body: JSON.stringify({
-          address: ipAddress
+          searchTerm: ipAddress
         })
       });
-
       const ipInfo = await res.json();
-      setIpAddress(ipInfo.data.ip);
+      const { data } = ipInfo;
+      setIsError(false);
+      setIpAddress(data.ip);
       setIpData({
-        ip: ipInfo.data.ip,
-        location: `${ipInfo.data.location.city}, ${ipInfo.data.location.region} ${ipInfo.data.location.postalCode}`,
-        timezone: `UTC${ipInfo.data.location.timezone}`,
-        isp: ipInfo.data.isp,
-        coordinates: [ipInfo.data.location.lat, ipInfo.data.location.lng]
+        ip: data.ip,
+        location: `${data.location.city}, ${data.location.region} ${data.location.postalCode}`,
+        timezone: `UTC${data.location.timezone}`,
+        isp: data.isp,
+        coordinates: [data.location.lat, data.location.lng]
       });
     } catch (err) {
+      setIsError(true);
       console.error(err);
     }
   };
@@ -48,6 +52,7 @@ function App() {
 
   return (
     <div className="h-screen">
+      {isError ? <ErrorMessage /> : null}
       <header className="pt-6 lg:pt-8 h-72 lg:h-68 text-center pattern relative">
         <h1 className="text-2xl lg:text-3xl font-medium text-white mb-7">
           IP Address Tracker
